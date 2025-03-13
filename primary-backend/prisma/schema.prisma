@@ -1,0 +1,80 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id String @id @default(uuid())
+  username String @unique
+  handle String
+  name String
+  password String
+  profleImg String
+  blogs Blog[]
+  drafts Draft[]
+  subscribers Subscribers[]
+  comments Comments[]
+  likes Likes[]
+  Saved SaveBlog[]
+}
+
+model Blog {
+  id String @id @default(uuid())
+  title String
+  subtitle String
+  writings String
+  blogImg String
+  userId String
+  tags String
+  likes Likes[]
+  comments Comments[]
+  user User @relation(fields: [userId],references: [id])
+  createdOn DateTime @default(now())
+}
+
+model Subscribers {
+  id String @id @default(uuid())
+  subscribersId String
+  user User @relation(fields: [subscribersId],references: [id])
+}
+
+model Draft{
+  id String @id @default(uuid())
+  userId String
+  user User @relation(fields: [userId],references: [id])
+}
+
+model Comments{
+  id String @id @default(uuid())
+  comment String
+  userId String
+  blogId String
+  blog Blog @relation(fields: [blogId],references: [id])
+  user User @relation(fields: [userId],references: [id])
+}
+
+model Likes {
+  id String @id @default(uuid())
+  likes Int
+  blogId String
+  userId String
+  blog Blog @relation(fields: [blogId],references: [id])
+  user User @relation(fields: [userId],references: [id])
+}
+
+model SaveBlog {
+  id String @id @default(uuid())
+  userId String
+  blogId String
+  user User @relation(fields: [userId],references: [id])
+}
