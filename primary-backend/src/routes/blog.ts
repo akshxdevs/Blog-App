@@ -1,10 +1,11 @@
 import { Router } from "express";
 import { blogSchema } from "../types";
 import { prismaClient } from "../db/db";
+import { authenticateJWT } from "../middleware";
 
 const router = Router();
 
-router.post("/getblogs",async(req,res)=>{
+router.post("/getblogs",authenticateJWT,async(req,res)=>{
     try {
         const getAllBlogs = await prismaClient.blog.findMany({
         })
@@ -36,7 +37,7 @@ router.post("/getblog/:id",async(req,res)=>{
     }
 });
 
-router.post("/createblog/:id",async(req,res)=>{
+router.post("/createblog/:id",authenticateJWT,async(req,res)=>{
     try {
         const userId = req.params.id
         const parsedBody = blogSchema.safeParse(req.body);
@@ -44,14 +45,12 @@ router.post("/createblog/:id",async(req,res)=>{
             console.log(parsedBody.error?.errors);
             return res.status(403).json({message:"Invalid inputs!"})
         } 
-        const {blogImg,title,subTitle,writings,tags} = parsedBody.data;
+        const {blogImg,title,subtitle,writings,tags} = parsedBody.data;
         const blog = await prismaClient.blog.create({
             data:{                
                 title:title,
-                blogImg:blogImg,
-                subtitle:subTitle,
+                subtitle:subtitle,
                 writings:writings,
-                tags:tags,
                 userId:userId
             }
         })
@@ -65,7 +64,7 @@ router.post("/createblog/:id",async(req,res)=>{
     }
 });
 
-router.post("/like/:id",async(req,res)=>{
+router.post("/like/:id",authenticateJWT,async(req,res)=>{
     try {
         const blogId = req.params.id
         const userId = req.body.userId
@@ -96,7 +95,7 @@ router.post("/like/:id",async(req,res)=>{
         res.status(411).json({message:"Something went wrong!!"})   
     }
 });
-router.post("/comment/:id",async(req,res)=>{
+router.post("/comment/:id",authenticateJWT,async(req,res)=>{
     try {
         const blogId = req.params.id
         const { userId,comments } = req.body 
@@ -129,7 +128,7 @@ router.post("/comment/:id",async(req,res)=>{
     }
 });
 
-router.post("/getlikes/:id",async(req,res)=>{
+router.post("/getlikes/:id",authenticateJWT,async(req,res)=>{
     try {
         const blogId = req.params.id 
         const getAllLikes = await prismaClient.likes.findMany({
@@ -149,7 +148,7 @@ router.post("/getlikes/:id",async(req,res)=>{
     }
 });
 
-router.post("/getcomments/:id",async(req,res)=>{
+router.post("/getcomments/:id",authenticateJWT,async(req,res)=>{
     try {
         const blogId = req.params.id 
         const getAllComments = await prismaClient.comments.findMany({
@@ -169,7 +168,7 @@ router.post("/getcomments/:id",async(req,res)=>{
     }
 });
 
-router.post("/subscribe/:id",async(req,res)=>{
+router.post("/subscribe/:id",authenticateJWT,async(req,res)=>{
     try {
         const userId = req.params.id
         const subscriberId = req.body.subscriberId
@@ -196,7 +195,7 @@ router.post("/subscribe/:id",async(req,res)=>{
     }
 });
 
-router.post("/savepost/:id",async(req,res)=>{
+router.post("/savepost/:id",authenticateJWT,async(req,res)=>{
     try {
         const blogId = req.params.id
         const userId = req.body.userId 
@@ -228,7 +227,7 @@ router.post("/savepost/:id",async(req,res)=>{
     }
 });
 
-router.post("/getsavedpost/:id",async(req,res)=>{
+router.post("/getsavedpost/:id",authenticateJWT,async(req,res)=>{
     try {
         const blogId = req.params.id;
         const userId = req.body.userId;

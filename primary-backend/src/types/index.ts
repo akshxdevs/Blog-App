@@ -14,9 +14,9 @@ export const signinSchema = z.object({
 });
 
 export const blogSchema = z.object({
-    title:z.string().min(5).max(20),
-    subTitle:z.string().min(5).max(30),
-    writings:z.string().min(5).max(100),
+    title:z.string().min(5).max(100),
+    subtitle:z.string().min(5).max(100),
+    writings:z.string(),
     blogImg:z.string().optional(),
     tags:z.string().optional()
 });

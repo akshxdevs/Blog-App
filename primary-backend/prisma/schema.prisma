@@ -33,7 +33,7 @@ model Blog {
   title String
   subtitle String
   writings String
-  blogImg String?
+  blogImages Images[]
   userId String
   tags String?
   likes Likes[]
@@ -77,4 +77,11 @@ model SaveBlog {
   userId String
   blogId String
   user User @relation(fields: [userId],references: [id])
+}
+
+model Images {
+  id String @id @default(uuid())
+  url String
+  blogId String
+  blog Blog @relation(fields: [blogId],references: [id])
 }
