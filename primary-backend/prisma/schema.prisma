@@ -19,7 +19,7 @@ model User {
   handle String
   name String
   password String
-  profleImg String
+  profleImg String?
   blogs Blog[]
   drafts Draft[]
   subscribers Subscribers[]
@@ -33,9 +33,9 @@ model Blog {
   title String
   subtitle String
   writings String
-  blogImg String
+  blogImg String?
   userId String
-  tags String
+  tags String?
   likes Likes[]
   comments Comments[]
   user User @relation(fields: [userId],references: [id])
@@ -65,7 +65,6 @@ model Comments{
 
 model Likes {
   id String @id @default(uuid())
-  likes Int
   blogId String
   userId String
   blog Blog @relation(fields: [blogId],references: [id])
