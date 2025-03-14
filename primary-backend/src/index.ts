@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/api/v1/user",userRouter)
-app.use("/api/v1/user",blogRouter)
+app.use("/api/v1/blog",blogRouter)
 
 app.listen(PORT,()=>{
     console.log("Server running on port 3000");

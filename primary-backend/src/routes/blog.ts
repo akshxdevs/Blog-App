@@ -172,6 +172,7 @@ router.post("/getcomments/:id",async(req,res)=>{
 router.post("/subscribe/:id",async(req,res)=>{
     try {
         const userId = req.params.id
+        const subscriberId = req.body.subscriberId
         const user = await prismaClient.user.findFirst({
             where:{
                 id:userId
@@ -182,7 +183,8 @@ router.post("/subscribe/:id",async(req,res)=>{
         }
         await prismaClient.subscribers.create({
             data:{
-                subscribersId:userId
+                userId:userId,
+                subscriberId:subscriberId
             }
         })
         res.json({
