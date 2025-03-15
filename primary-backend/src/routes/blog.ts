@@ -5,9 +5,10 @@ import { authenticateJWT } from "../middleware";
 
 const router = Router();
 
-router.post("/getblogs",authenticateJWT,async(req,res)=>{
+router.get("/getblogs",authenticateJWT,async(req,res)=>{
     try {
         const getAllBlogs = await prismaClient.blog.findMany({
+            include:{blogImages:true}
         })
         if (!getAllBlogs) return res.status(403).json({message:[]})
         res.json({
@@ -19,7 +20,7 @@ router.post("/getblogs",authenticateJWT,async(req,res)=>{
     }
 });
 
-router.post("/getblog/:id",async(req,res)=>{
+router.get("/getblog/:id",async(req,res)=>{
     try {
         const userId = req.params.id
         const getAllBlogs = await prismaClient.blog.findMany({
@@ -128,7 +129,7 @@ router.post("/comment/:id",authenticateJWT,async(req,res)=>{
     }
 });
 
-router.post("/getlikes/:id",authenticateJWT,async(req,res)=>{
+router.get("/getlikes/:id",authenticateJWT,async(req,res)=>{
     try {
         const blogId = req.params.id 
         const getAllLikes = await prismaClient.likes.findMany({
@@ -148,7 +149,7 @@ router.post("/getlikes/:id",authenticateJWT,async(req,res)=>{
     }
 });
 
-router.post("/getcomments/:id",authenticateJWT,async(req,res)=>{
+router.get("/getcomments/:id",authenticateJWT,async(req,res)=>{
     try {
         const blogId = req.params.id 
         const getAllComments = await prismaClient.comments.findMany({
@@ -227,7 +228,7 @@ router.post("/savepost/:id",authenticateJWT,async(req,res)=>{
     }
 });
 
-router.post("/getsavedpost/:id",authenticateJWT,async(req,res)=>{
+router.get("/getsavedpost/:id",authenticateJWT,async(req,res)=>{
     try {
         const blogId = req.params.id;
         const userId = req.body.userId;
@@ -242,6 +243,33 @@ router.post("/getsavedpost/:id",authenticateJWT,async(req,res)=>{
         }
         res.json({
             getAllSavedPost
+        })
+    }catch (error) {
+        console.error(error);
+        res.status(411).json({message:"Something went wrong!!"})   
+    }
+});
+
+router.post("/addimages/:id",authenticateJWT,async(req,res)=>{
+    try {
+        const blogId = req.params.id
+        const url = req.body.url
+        const blog = await prismaClient.blog.findFirst({
+            where:{
+                id:blogId
+            }
+        })
+        if (!blog) {
+            res.status(403).json({message:"blog Not Exist!!"})
+        }
+        await prismaClient.images.create({
+            data:{
+                url:url,
+                blogId:blogId,
+            }
+        })
+        res.json({
+            mesage:"Blog Image Added Successfully!!",
         })
     }catch (error) {
         console.error(error);

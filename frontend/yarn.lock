@@ -1764,12 +1764,14 @@ __metadata:
     axios: "npm:^1.8.3"
     eslint: "npm:^8"
     eslint-config-next: "npm:14.2.24"
+    lucide-react: "npm:^0.482.0"
     next: "npm:14.2.24"
     postcss: "npm:^8"
     react: "npm:^18"
     react-dom: "npm:^18"
     react-toastify: "npm:^11.0.5"
     recoil: "npm:^0.7.7"
+    swiper: "npm:^11.2.5"
     tailwindcss: "npm:^3.4.1"
     typescript: "npm:^5"
   languageName: unknown
@@ -2627,6 +2629,15 @@ __metadata:
   version: 10.4.3
   resolution: "lru-cache@npm:10.4.3"
   checksum: 10c0/ebd04fbca961e6c1d6c0af3799adcc966a1babe798f685bb84e6599266599cd95d94630b10262f5424539bc4640107e8a33aa28585374abf561d30d16f4b39fb
+  languageName: node
+  linkType: hard
+
+"lucide-react@npm:^0.482.0":
+  version: 0.482.0
+  resolution: "lucide-react@npm:0.482.0"
+  peerDependencies:
+    react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+  checksum: 10c0/02ffc5e29da9306da856612fa089b168d4100b0bc70ea182d51e4abc43ee43227647573befd58d341fc1bef4b989e49eb5e41f11817b5bd01d5e8ada4abfbdca
   languageName: node
   linkType: hard
 
@@ -3965,6 +3976,13 @@ __metadata:
   version: 1.0.0
   resolution: "supports-preserve-symlinks-flag@npm:1.0.0"
   checksum: 10c0/6c4032340701a9950865f7ae8ef38578d8d7053f5e10518076e6554a9381fa91bd9c6850193695c141f32b21f979c985db07265a758867bac95de05f7d8aeb39
+  languageName: node
+  linkType: hard
+
+"swiper@npm:^11.2.5":
+  version: 11.2.5
+  resolution: "swiper@npm:11.2.5"
+  checksum: 10c0/dd1e598a810ee4e38316dc6bb80d27be374faf78385f44669f24c46427929d8532e96fc52fb45b8c9edb956074408ce14208355ff8410d68a71e5f8f39287da1
   languageName: node
   linkType: hard
 

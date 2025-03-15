@@ -36,6 +36,7 @@ model Blog {
   blogImages Images[]
   userId String
   tags String?
+  thumbnailImg String?
   likes Likes[]
   comments Comments[]
   user User @relation(fields: [userId],references: [id])

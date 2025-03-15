@@ -18,7 +18,7 @@ export const AppBar = () =>  {
                         <button className="bg-gray-800 px-5 py-2 rounded-lg font-semibold">Sign in</button>
                     </div>
                     <div>
-                        <button className="bg-orange-600 px-2 py-2 rounded-lg font-semibold">Create Account</button>
+                        <button className="bg-orange-600 px-2 py-2 rounded-lg font-semibold">create account</button>
                     </div>
                 </div>
             </div>
