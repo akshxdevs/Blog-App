@@ -63,7 +63,7 @@ export const ImageSlider = () => {
                 </div>
               ))}
               <div className="absolute bottom-0 w-full bg-gradient-to-t  via-black to-transparent from-black p-4">
-                <p className="text-gray-300 text-xs font-semibold">{"akash"}</p>
+                <p className="text-gray-300 text-xs font-semibold">{blog.user?.name}</p>
                 <h3 className="text-white text-lg font-bold w-52">
                   {blog.title}
                 </h3>

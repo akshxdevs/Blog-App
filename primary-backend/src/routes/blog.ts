@@ -8,7 +8,10 @@ const router = Router();
 router.get("/getblogs",authenticateJWT,async(req,res)=>{
     try {
         const getAllBlogs = await prismaClient.blog.findMany({
-            include:{blogImages:true}
+            include:{
+                blogImages:true,
+                user:true
+            }       
         })
         if (!getAllBlogs) return res.status(403).json({message:[]})
         res.json({
@@ -26,7 +29,10 @@ router.get("/getblog/:id",async(req,res)=>{
         const getAllBlogs = await prismaClient.blog.findMany({
             where:{
                 id:blogId
-            },include:{blogImages:true}
+            },include:{
+                blogImages:true,
+                user:true
+            }
         })
         if (!getAllBlogs) return res.status(403).json({message:"No Blogs Published Yet!!"})
         res.json({

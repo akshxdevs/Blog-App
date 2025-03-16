@@ -4,13 +4,14 @@ import { BACKEND_URL } from "@/app/config";
 import axios from "axios";
 import {  LucideOption, Option, OptionIcon, X } from "lucide-react";
 import { Play } from "lucide-react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 export default function(){
     const params = useParams()
     const blogId = params[""]?.[0]
     console.log(blogId);
+    const router = useRouter();
     
     const [blog,setBlog] = useState<any[]>([]);
     useEffect(()=>{
@@ -34,25 +35,33 @@ export default function(){
     },[])
     return <div className="overflow-hidden">
         <Navbar/>
-        <div className="relative items-center left-20 max-w-[1420px] m-5 p-10">
+        <div className="relative items-center left-20 max-w-[1420px] m-5 p-5">
             <div className="flex justify-between border-b border-gray-700">
-                <div>
-                    <X size={24}/>
+                <div className="flex justify-center items-center mb-8 px-2 pt-2 bg-gray-800 rounded-lg">
+                    <button onClick={()=>{
+                        router.push("/home")
+                    }}><X size={24}/></button>
                 </div>
                 <div>
                     <img src="" alt="profilePic" />
                 </div>
-                <div>
-                    <button>Subscribe</button>
-                    <button><Play size={24} color="red"/></button>
-                    <button>...</button>
+                <div className="flex gap-10 mb-8">
+                    <div className="px-2 pt-2 bg-gray-800 rounded-lg">
+                        <button>Subscribe</button>
+                    </div>
+                    <div>
+                        <button><Play size={24} color="red"/></button>
+                    </div>
+                    <div>
+                        <button>...</button>
+                    </div>
                 </div>
             </div>
             <div className="flex flex-col max-w-full w-full py-10 ">
                 <div className="px-80 w-full ">
                     {blog.map((log,index)=>(
                         <div key={index} className="border-b border-gray-900">
-                            <p className="text-xs font-semibold text-gray-500">THE METROPOLITAN REVIEW</p>
+                            <p className="text-xs font-semibold text-gray-500">{log.user?.name}</p>
                             <h1 className="text-4xl font-bold py-2">{log.title}</h1>
                             <h2 className="text-sm font-extralight py-2 text-gray-500">{log.subtitle}</h2>
                             <div className="flex gap-3 pb-3 pt-5">
@@ -60,7 +69,7 @@ export default function(){
                                     <img src="" alt="profilePic" />
                                 </div>
                                 <div>
-                                    <p className="text-xs font-semibold text-slate-100">{"THE METROPOLITAN REVIEW"}</p>
+                                    <p className="text-xs font-semibold text-slate-100">{log.user?.name}</p>
                                     <p className="text-[10px] text-gray-500">{log.createdOn}</p>
                                 </div>
                             </div>
