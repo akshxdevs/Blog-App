@@ -2,7 +2,7 @@
 import { Navbar } from "@/app/Components/NavBar";
 import { BACKEND_URL } from "@/app/config";
 import axios from "axios";
-import {  LucideOption, Option, OptionIcon, X } from "lucide-react";
+import { X } from "lucide-react";
 import { Play } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -12,7 +12,6 @@ export default function(){
     const blogId = params[""]?.[0]
     console.log(blogId);
     const router = useRouter();
-    
     const [blog,setBlog] = useState<any[]>([]);
     useEffect(()=>{
         const getblog = async() => {
@@ -35,38 +34,46 @@ export default function(){
     },[])
     return <div className="overflow-hidden">
         <Navbar/>
-        <div className="relative items-center left-20 max-w-[1420px] m-5 p-5">
-            <div className="flex justify-between border-b border-gray-700">
-                <div className="flex justify-center items-center mb-8 px-2 pt-2 bg-gray-800 rounded-lg">
+        <div className="relative items-center left-20 max-w-[1420px] p-5 border m-3 rounded-xl border-gray-700">
+            <div className="flex justify-between border-b border-gray-700 pb-5">
+                <div className="flex justify-center items-center p-3 bg-gray-800 rounded-lg">
                     <button onClick={()=>{
                         router.push("/home")
                     }}><X size={24}/></button>
                 </div>
-                <div>
-                    <img src="" alt="profilePic" />
+                <div className="border ml-20">
+                    {blog.map((blok,index)=>(
+                        <div key={index} className="border-2 border-slate-400">
+                            <img src={blok.user?.profleImg} alt="profilePic" className="h-11 w-12"/>
+                        </div>
+                    ))}
                 </div>
-                <div className="flex gap-10 mb-8">
-                    <div className="px-2 pt-2 bg-gray-800 rounded-lg">
+                <div className="flex gap-3">
+                    <div className="p-3  bg-orange-600 font-semibold rounded-lg">
                         <button>Subscribe</button>
                     </div>
-                    <div>
-                        <button><Play size={24} color="red"/></button>
+                    <div className="flex justify-center items-center p-3 bg-gray-800 rounded-lg">
+                        <button><Play size={23}/></button>
                     </div>
-                    <div>
-                        <button>...</button>
+                    <div className="flex justify-center items-center p-3 bg-gray-800 rounded-lg">
+                        <button>. . .</button>
                     </div>
                 </div>
             </div>
             <div className="flex flex-col max-w-full w-full py-10 ">
                 <div className="px-80 w-full ">
                     {blog.map((log,index)=>(
-                        <div key={index} className="border-b border-gray-900">
-                            <p className="text-xs font-semibold text-gray-500">{log.user?.name}</p>
+                        <div key={index} className="border-b border-gray-700">
+                            <p className="text-md font-semibold text-gray-500">{log.user?.name}</p>
                             <h1 className="text-4xl font-bold py-2">{log.title}</h1>
-                            <h2 className="text-sm font-extralight py-2 text-gray-500">{log.subtitle}</h2>
+                            <h2 className="text-md font-extralight py-2 text-gray-500">{log.subtitle}</h2>
                             <div className="flex gap-3 pb-3 pt-5">
                                 <div>
-                                    <img src="" alt="profilePic" />
+                                    {blog.map((blok,index)=>(
+                                        <div key={index} className="">
+                                            <img src={blok.user?.profleImg} alt="profilePic" className="h-10 w-10 rounded-3xl"/>
+                                        </div>
+                                    ))}
                                 </div>
                                 <div>
                                     <p className="text-xs font-semibold text-slate-100">{log.user?.name}</p>
@@ -90,13 +97,23 @@ export default function(){
                             </div>
                         ))}
                     </div>
-                    <div className="px-72">
+                    <div className="flex w-full justify-center items-center">
                         {blog.map((log,index)=>(
-                            <div key={index} className="">
+                            <div key={index} className="w-1/3 border-b py-5 border-gray-700">
                                 <p className="text-lg">{log.writings}</p>
                             </div>
                         ))}
                     </div>
+            </div >
+            <div className="flex flex-row justify-center items-center ">
+                <div className="flex border w-fit h-fit border-orange-600">
+                    <div className="">
+                        <input type="text" placeholder="type your email" className="border border-orange-600 bg-gray-900 p-2"/>
+                    </div>
+                    <div className="bg-orange-600 border border-orange-600 font-semibold p-2">
+                        <button>Subscribe</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
