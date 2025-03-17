@@ -4,6 +4,7 @@ import { BACKEND_URL } from "@/app/config";
 import axios from "axios";
 import { X } from "lucide-react";
 import { Play } from "lucide-react";
+import { headers } from "next/headers";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -13,6 +14,8 @@ export default function(){
     console.log(blogId);
     const router = useRouter();
     const [blog,setBlog] = useState<any[]>([]);
+    const [email,setEmail] = useState();
+    const userId = localStorage.getItem("userId");
     useEffect(()=>{
         const getblog = async() => {
             try {
@@ -31,7 +34,21 @@ export default function(){
                   }
         }
         getblog();
-    },[])
+    },[]);
+
+    const handleSubscribe = async() => {
+        const res = await axios.post(`${BACKEND_URL}/blog/${userId}`,{
+            subscriberEmail:email
+        },{
+            headers:{
+                authorization:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMyZDNmNzYxLWUyNDMtNDIyZS1iMDgwLTc3Y2FjMzcxNjdlMyIsImlhdCI6MTc0MTk0MzQ2N30.FTJlHgETv0w9wEagB_VXn9V295Opus0hFYaDH20fqqo"
+            }
+        })
+        if (res.data) {
+            toast.success("Subscribed Successfully!!");
+        }
+    }
+
     return <div className="overflow-hidden">
         <Navbar/>
         <div className="relative items-center left-20 max-w-[1420px] p-5 border m-3 rounded-xl border-gray-700">
@@ -99,19 +116,19 @@ export default function(){
                     </div>
                     <div className="flex w-full justify-center items-center">
                         {blog.map((log,index)=>(
-                            <div key={index} className="w-1/3 border-b py-5 border-gray-700">
+                            <div key={index} className="w-1/2 border-b py-5 border-gray-700">
                                 <p className="text-lg">{log.writings}</p>
                             </div>
                         ))}
                     </div>
             </div >
-            <div className="flex flex-row justify-center items-center ">
-                <div className="flex border w-fit h-fit border-orange-600">
+            <div className="flex flex-row justify-center items-center w-full">
+                <div className="flex h-fit">
                     <div className="">
-                        <input type="text" placeholder="type your email" className="border border-orange-600 bg-gray-900 p-2"/>
+                        <input type="text" placeholder="type your email..." className="border w-96 rounded-tl-lg rounded-bl-lg border-orange-600 bg-gray-900 p-2" value={email} onChange={(e:any)=>setEmail(e.target.value)}/>
                     </div>
-                    <div className="bg-orange-600 border border-orange-600 font-semibold p-2">
-                        <button>Subscribe</button>
+                    <div className="bg-orange-600 border rounded-tr-lg rounded-br-lg border-orange-600 font-semibold p-2">
+                        <button onClick={handleSubscribe}>Subscribe</button>
                     </div>
                 </div>
             </div>

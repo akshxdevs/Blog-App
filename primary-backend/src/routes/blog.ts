@@ -178,7 +178,7 @@ router.get("/getcomments/:id",authenticateJWT,async(req,res)=>{
 router.post("/subscribe/:id",authenticateJWT,async(req,res)=>{
     try {
         const userId = req.params.id
-        const subscriberId = req.body.subscriberId
+        const subscriberEmail = req.body.subscriberEmail
         const user = await prismaClient.user.findFirst({
             where:{
                 id:userId
@@ -190,7 +190,7 @@ router.post("/subscribe/:id",authenticateJWT,async(req,res)=>{
         await prismaClient.subscribers.create({
             data:{
                 userId:userId,
-                subscriberId:subscriberId
+                subscriberEmail:subscriberEmail
             }
         })
         res.json({

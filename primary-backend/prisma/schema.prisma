@@ -46,7 +46,8 @@ model Blog {
 model Subscribers {
   id String @id @default(uuid())
   userId String
-  subscriberId String
+  subscriberId String?
+  subscriberEmail String?
   user User @relation(fields: [userId],references: [id])
 }
 
