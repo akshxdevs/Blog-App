@@ -37,17 +37,23 @@ export default function(){
     },[]);
 
     const handleSubscribe = async() => {
-        const res = await axios.post(`${BACKEND_URL}/blog/${userId}`,{
-            subscriberEmail:email
-        },{
-            headers:{
-                authorization:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMyZDNmNzYxLWUyNDMtNDIyZS1iMDgwLTc3Y2FjMzcxNjdlMyIsImlhdCI6MTc0MTk0MzQ2N30.FTJlHgETv0w9wEagB_VXn9V295Opus0hFYaDH20fqqo"
+        try {
+            const res = await axios.post(`${BACKEND_URL}/blog/${userId}`,{
+                subscriberEmail:email
+            },{
+                headers:{
+                    authorization:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMyZDNmNzYxLWUyNDMtNDIyZS1iMDgwLTc3Y2FjMzcxNjdlMyIsImlhdCI6MTc0MTk0MzQ2N30.FTJlHgETv0w9wEagB_VXn9V295Opus0hFYaDH20fqqo"
+                }
+            })
+            if (res.data) {
+                toast.success("Subscribed Successfully!!");
             }
-        })
-        if (res.data) {
-            toast.success("Subscribed Successfully!!");
+        }catch (error) {
+            console.error(error);
+            toast.error("Something went wrong!!");
         }
     }
+
 
     return <div className="overflow-hidden">
         <Navbar/>
