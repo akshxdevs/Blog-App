@@ -1,8 +1,12 @@
+"use client";
 import { useState } from "react"
 import { LoginComponenet } from "./LoginComponent"
+import { useRecoilValue } from "recoil";
+import { loginStateAtom } from "../recoil/atom";
 
 export const AppBar = () =>  {
     const [showLoginModel,setShowLoginModel] = useState(false);
+    const isLogin = useRecoilValue(loginStateAtom);
     return <div>
         <div className="fixed left-20 w-full bg-black z-50">
             <div className="flex justify-between p-4 border-b border-gray-800">
@@ -17,16 +21,22 @@ export const AppBar = () =>  {
                     </button>
                     <input type="text" placeholder="Search Substack" className="bg-[#191919] w-full pl-3 rounded-3xl outline-none"/>
                 </div>
-                <div className="flex px-20 py-2">
-                    <div className="pr-5">
-                        <button className="bg-gray-800 px-5 py-2 rounded-lg font-semibold" onClick={()=>{
-                            setShowLoginModel(true)
-                        }}>Sign in</button>
+                {isLogin ? (
+                    <div className="px-20 py-2">
+                        <button className="bg-orange-600 px-2 py-2 rounded-lg font-semibold">DashBoard</button>
                     </div>
-                    <div>
-                        <button className="bg-orange-600 px-2 py-2 rounded-lg font-semibold">create account</button>
+                ):(
+                    <div className="flex px-20 py-2">
+                        <div className="pr-5">
+                            <button className="bg-gray-800 px-5 py-2 rounded-lg font-semibold" onClick={()=>{
+                                setShowLoginModel(true)
+                            }}>Sign in</button>
+                        </div>
+                        <div>
+                            <button className="bg-orange-600 px-2 py-2 rounded-lg font-semibold">create account</button>
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
         </div>
         <div>

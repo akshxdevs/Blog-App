@@ -1,8 +1,11 @@
+"use client";
 import axios from "axios";
 import { Dispatch, SetStateAction, useState } from "react"
 import { BACKEND_URL } from "../config";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { useRecoilState } from "recoil";
+import { loginStateAtom } from "../recoil/atom";
 
 interface Props{
     setLoginModel: Dispatch<SetStateAction<boolean>>
@@ -13,6 +16,7 @@ export const LoginComponenet = ({setLoginModel}:Props) => {
     const [password,setPassword] = useState();
     const[OTPVerifyModel,setOTPVerifyModel] = useState(false);
     const [otp,setOtp] = useState();
+    const [isLogin,setIsLogin] = useRecoilState(loginStateAtom)
     const router = useRouter();
     return<div className="fixed inset-0 flex items-center justify-center bg-[#191919] bg-opacity-50 backdrop-blur-sm z-[999]">
         {OTPVerifyModel ? (
@@ -44,6 +48,7 @@ export const LoginComponenet = ({setLoginModel}:Props) => {
                                     localStorage.setItem("handle",res.data.user.handle);
                                     setOTPVerifyModel(false);
                                     setLoginModel(false);
+                                    setIsLogin(true)
                                     router.push("/home");
                                 }
                             } catch (error) {
