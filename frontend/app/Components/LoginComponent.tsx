@@ -12,49 +12,56 @@ export const LoginComponenet = ({setLoginModel}:Props) => {
     const [email,setEmail] = useState();
     const [password,setPassword] = useState();
     const[OTPVerifyModel,setOTPVerifyModel] = useState(false);
+    const [otp,setOtp] = useState();
     const router = useRouter();
     return<div className="fixed inset-0 flex items-center justify-center bg-[#191919] bg-opacity-50 backdrop-blur-sm z-[999]">
         {OTPVerifyModel ? (
-        <div className="bg-[#191919] p-10 rounded-lg shadow-lg w-[500px] flex-col justify-center items-center">
-            <div className="px-2 pt-2 ml-44 mb-5 border rounded-md border-gray-500 w-fit">
-                <button>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
-                    </svg>
-                </button>
-            </div>
-            <h1 className="text-xl font-semibold text-center">Check your email to continue</h1>
-            <h2 className="py-2 text-lg text-gray-500 text-center">We've sent an email to {email}. Click the magic link or enter the code below:</h2>
-            
-            <form className="max-w-sm mx-auto py-4 flex justify-center items-center">
-                <div className="flex mb-2 space-x-2 rtl:space-x-reverse">
-                    <div>
-                        <label  className="sr-only">First code</label>
-                        <input type="text" data-focus-input-init data-focus-input-next="code-2" id="code-1" className="block w-9 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required />
+        <div className="bg-[#191919] rounded-lg shadow-lg w-[500px] flex-col justify-center items-center">
+            <div className="p-5 border-b border-gray-700">
+                <div className="w-full">
+                    <div className="px-2 pt-2 ml-52 mb-5 border rounded-md border-gray-500 w-fit">
+                        <button>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                            </svg>
+                        </button>
                     </div>
-                    <div>
-                        <label  className="sr-only">Second code</label>
-                        <input type="text" data-focus-input-init data-focus-input-prev="code-1" data-focus-input-next="code-3" id="code-2" className="block w-9 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required />
-                    </div>
-                    <div>
-                        <label  className="sr-only">Third code</label>
-                        <input type="text" data-focus-input-init data-focus-input-prev="code-2" data-focus-input-next="code-4" id="code-3" className="block w-9 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required />
-                    </div>
-                    <div>
-                        <label  className="sr-only">Fourth code</label>
-                        <input type="text" data-focus-input-init data-focus-input-prev="code-3" data-focus-input-next="code-5" id="code-4" className="block w-9 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required />
-                    </div>
-                    <div>
-                        <label  className="sr-only">Fifth code</label>
-                        <input type="text" data-focus-input-init data-focus-input-prev="code-4" data-focus-input-next="code-6" id="code-5" className="block w-9 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required />
-                    </div>
-                    <div>
-                        <label  className="sr-only">Sixth code</label>
-                        <input type="text" data-focus-input-init data-focus-input-prev="code-5" id="code-6" className="block w-9 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required />
+                    <h1 className="text-xl font-semibold text-center">Check your email to continue</h1>
+                    <h2 className="py-2 text-lg text-gray-500 text-center">We've sent an email to {email}. Click the magic link or enter the code below:</h2>
+                    <div className="flex justify-center items-center gap-3">
+                        <input type="text" className="w-fit border rounded-xl border-gray-700 mt-2  p-2 bg-[#191919] outline-none" placeholder="your otp" value={otp} onChange={(e:any)=>setOtp(e.target.value)} />
+                        <button className="bg-orange-600 px-2 py-2 mt-2 rounded-lg font-semibold" onClick={async()=>{
+                            try {
+                                const res = await axios.post(`${BACKEND_URL}/user/signin/verify-otp`,{
+                                    username:email,
+                                    otp:otp
+                                });
+                                if (res.data) {
+                                    toast.success("Login Successfull!!")!!
+                                    localStorage.setItem("userId",res.data.user.id);
+                                    localStorage.setItem("token",res.data.token);
+                                    localStorage.setItem("name",res.data.user.name);
+                                    localStorage.setItem("handle",res.data.user.handle);
+                                    setOTPVerifyModel(false);
+                                    setLoginModel(false);
+                                    router.push("/home");
+                                }
+                            } catch (error) {
+                                console.error(error);
+                                toast.error("Something Went Wrong!!");
+                            }
+                        }}>Verify</button>
                     </div>
                 </div>
-            </form>
-
+            </div>
+            <div className="flex justify-center items-center py-3">
+                    <div className="text-sm text-gray-600">
+                        <p>Didn't get the email?</p>
+                    </div>
+                    <div className="text-orange-600 text-sm">
+                        <p>Try again</p>
+                    </div>
+            </div>
         </div>
     ):(
         <div className="bg-[#191919] p-6 rounded-lg shadow-lg w-96">
@@ -80,18 +87,18 @@ export const LoginComponenet = ({setLoginModel}:Props) => {
           </div>
           <div className="bg-orange-600 p-2 rounded-lg font-semibold w-full text-center">
               <button onClick={async()=>{
-                  const res = await axios.post(`${BACKEND_URL}/user/signin`,{
-                      username:email,
-                  })
-                  if (res.data) {
-                      toast.success("OTP Genereated Successfully!!")
-                      setOTPVerifyModel(true);
-                      localStorage.setItem("userId",res.data.user.id);
-                      localStorage.setItem("userId",res.data.token);
-                      localStorage.setItem("userId",res.data.user.name);
-                      localStorage.setItem("userId",res.data.user.handle);
-                      router.push("/home");
-                  }
+                try {
+                    const res = await axios.post(`${BACKEND_URL}/user/signin`,{
+                        username:email,
+                    })
+                    if (res.data) {
+                        toast.success("OTP Genereated Successfully!!")
+                        setOTPVerifyModel(true);
+                    }
+                } catch (error) {
+                    console.error(error);
+                    toast.error("Something Went Wrong!!");
+                }
               }}>Continue</button>
           </div>
           <div className="py-2">
