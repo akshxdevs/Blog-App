@@ -40,9 +40,9 @@ return <div>
         <StartupCard/>
 
         {blogs.map((blog,index)=>(
-            <div key={index} className="py-">
+            <div key={index} className="">
             <div className="flex w-full flex-col justify-center items-center">
-                <div className="flex justify-between gap-36 px-10 pt-10 pb-5">
+                <div className="flex justify-between gap-32 px-10 pt-10 pb-5">
                     <div className="flex gap-3">
                         <div className="">
                             <img src={blog.user?.profleImg} alt="profilePic" className="h-10 w-10 rounded-3xl"/>
@@ -82,10 +82,9 @@ return <div>
                         {blog.blogImages?.map((img:any,index:any)=>(
                                 <img key={index} src={img.url} alt="" className="w-full h-full object-contain rounded-lg"/>
                         ))}
-                    </div>
-                    <div className="relative bottom-[88px] rounded-br-lg rounded-bl-lg p-3 bg-gray-700">
-                            <div className="flex">
-                                <div className="">
+                        <div className="rounded-br-lg rounded-bl-lg bg-gray-700">
+                            <div className="flex w-full p-2">
+                                <div className="w-full">
                                     <div className="flex gap-3">
                                         <div className="">
                                             <img src={blog.user?.profleImg} alt="profilePic" className="h-10 w-10 rounded-3xl"/>
@@ -94,24 +93,25 @@ return <div>
                                             <p className="py-2 font-light text-slate-500">{blog.user?.handle}</p>
                                         </div>
                                     </div>
-                                    <div>
-                                        <h1 className="text-md font-semibold">{blog.title}</h1>
-                                    </div>
-                                </div>
-                                <div className="ml-28">
-                                    <div>
-                                        <button>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-5">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z" />
-                                            </svg>
-                                        </button>
+                                    <div className="flex justify-between w-full">
+                                        <div>
+                                            <h1 className="text-md font-semibold">{blog.title}</h1>
+                                        </div>
+                                        <div>
+                                            <button>
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-5">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z" />
+                                                </svg>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </div>
-                <div className="flex justify-center items-center border px-8 border-gray-700">
-                    <div className="flex  gap-5">
+                <div className="flex pt-20 justify-center items-center border-b px-8 border-gray-700 w-[500px]">
+                    <div className="flex gap-5 w-full py-2">
                         <div>
                             <button>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-5">

@@ -55,35 +55,37 @@ export default function(){
     }
 
 
-    return <div className="overflow-hidden">
+    return <div className="">
         <Navbar/>
         <div className="relative items-center left-20 max-w-[1420px] p-5 border m-3 rounded-xl border-gray-700">
-            <div className="flex justify-between border-b border-gray-700 pb-5">
-                <div className="flex justify-center items-center p-3 bg-gray-800 rounded-lg">
-                    <button onClick={()=>{
-                        router.push("/home")
-                    }}><X size={24}/></button>
-                </div>
-                <div className="border ml-20">
-                    {blog.map((blok,index)=>(
-                        <div key={index} className="border-2 border-slate-400">
-                            <img src={blok.user?.profleImg} alt="profilePic" className="h-11 w-12"/>
+            <div className="fixed top-3 p-5 w-[1380px]">
+                <div className="flex justify-between border-b border-gray-700 pb-5">
+                    <div className="flex justify-center items-center p-3 bg-gray-800 rounded-lg">
+                        <button onClick={()=>{
+                            router.push("/home");
+                        }}><X size={24}/></button>
+                    </div>
+                    <div className="border ml-20">
+                        {blog.map((blok,index)=>(
+                            <div key={index} className="border-2 border-slate-400">
+                                <img src={blok.user?.profleImg} alt="profilePic" className="h-11 w-12"/>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="flex gap-3">
+                        <div className="p-3  bg-orange-600 font-semibold rounded-lg">
+                            <button>Subscribe</button>
                         </div>
-                    ))}
-                </div>
-                <div className="flex gap-3">
-                    <div className="p-3  bg-orange-600 font-semibold rounded-lg">
-                        <button>Subscribe</button>
-                    </div>
-                    <div className="flex justify-center items-center p-3 bg-gray-800 rounded-lg">
-                        <button><Play size={23}/></button>
-                    </div>
-                    <div className="flex justify-center items-center p-3 bg-gray-800 rounded-lg">
-                        <button>. . .</button>
+                        <div className="flex justify-center items-center p-3 bg-gray-800 rounded-lg">
+                            <button><Play size={23}/></button>
+                        </div>
+                        <div className="flex justify-center items-center p-3 bg-gray-800 rounded-lg">
+                            <button>. . .</button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div className="flex flex-col max-w-full w-full py-10 ">
+            <div className="flex flex-col max-w-full w-full py-20 ">
                 <div className="px-80 w-full ">
                     {blog.map((log,index)=>(
                         <div key={index} className="border-b border-gray-700">

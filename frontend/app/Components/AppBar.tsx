@@ -1,6 +1,10 @@
+import { useState } from "react"
+import { LoginComponenet } from "./LoginComponent"
+
 export const AppBar = () =>  {
+    const [showLoginModel,setShowLoginModel] = useState(false);
     return <div>
-        <div className="fixed left-20 w-full">
+        <div className="fixed left-20 w-full bg-black z-50">
             <div className="flex justify-between p-4 border-b border-gray-800">
                 <div>
                     <h1 className="text-2xl pl- py-3 font-bold">Home</h1>  
@@ -15,13 +19,20 @@ export const AppBar = () =>  {
                 </div>
                 <div className="flex px-20 py-2">
                     <div className="pr-5">
-                        <button className="bg-gray-800 px-5 py-2 rounded-lg font-semibold">Sign in</button>
+                        <button className="bg-gray-800 px-5 py-2 rounded-lg font-semibold" onClick={()=>{
+                            setShowLoginModel(true)
+                        }}>Sign in</button>
                     </div>
                     <div>
                         <button className="bg-orange-600 px-2 py-2 rounded-lg font-semibold">create account</button>
                     </div>
                 </div>
             </div>
+        </div>
+        <div>
+            {showLoginModel && (
+                <LoginComponenet setLoginModel={setShowLoginModel}/>
+            )}
         </div>
     </div>
 }

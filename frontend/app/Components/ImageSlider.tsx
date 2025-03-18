@@ -47,36 +47,36 @@ export const ImageSlider = () => {
   };
 
   return (
-    <div>
-    <div className="relative w-full max-w-7xl mx-40 my-20 top-20">
-      <div className="relative overflow-hidden w-full">
-        <div className="flex gap-1 transition-transform duration-500 ease-in-out" 
-          style={{ transform: `translateX(-${currentIndex * (100 / visibleImages)}%)` }}
-        >
-          {blogPosts.map((blog, index) => (
-            <div key={index} className="w-[calc(100%/5)] flex-shrink-0 border h-fit  border-gray-900 rounded-xl" onClick={()=>router.push(`/blog/${blog.id}`)}>
-              {blog.blogImages?.map((img:any,index:any)=>(
-                <div key={index}>
-                  <div>
-                  <img src={img.url} alt="" className="w-full h-80 object-cover rounded-lg"/>
+    <div className="">
+      <div className="relative w-full max-w-7xl mx-40 my-20 top-20 z-10">
+        <div className="relative overflow-hidden w-full">
+          <div className="flex gap-1 transition-transform duration-500 ease-in-out" 
+            style={{ transform: `translateX(-${currentIndex * (100 / visibleImages)}%)` }}
+          >
+            {blogPosts.map((blog, index) => (
+              <div key={index} className="w-[calc(100%/5)] flex-shrink-0 border h-fit  border-gray-900 rounded-xl" onClick={()=>router.push(`/blog/${blog.id}`)}>
+                {blog.blogImages?.map((img:any,index:any)=>(
+                  <div key={index}>
+                    <div>
+                    <img src={img.url} alt="" className="w-full h-80 object-cover rounded-lg"/>
+                    </div>
                   </div>
+                ))}
+                <div className="absolute bottom-0 w-full bg-gradient-to-t  via-black to-transparent from-black p-4">
+                  <p className="text-gray-300 text-xs font-semibold">{blog.user?.name}</p>
+                  <h3 className="text-white text-lg font-bold w-52">
+                    {blog.title}
+                  </h3>
+                  <p className="text-gray-400 text-sm mt-2">
+                    <span className="bg-gray-700 text-white px-2 py-1 text-xs rounded-md">New</span>{" "}
+                    · 8m read
+                  </p>
                 </div>
-              ))}
-              <div className="absolute bottom-0 w-full bg-gradient-to-t  via-black to-transparent from-black p-4">
-                <p className="text-gray-300 text-xs font-semibold">{blog.user?.name}</p>
-                <h3 className="text-white text-lg font-bold w-52">
-                  {blog.title}
-                </h3>
-                <p className="text-gray-400 text-sm mt-2">
-                  <span className="bg-gray-700 text-white px-2 py-1 text-xs rounded-md">New</span>{" "}
-                  · 8m read
-                </p>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
-    </div>
         {currentIndex > 0 && (
             <button
               onClick={prevSlide}
