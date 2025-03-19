@@ -1,4 +1,8 @@
+import { useRouter } from "next/navigation";
+
 export const Navbar = () =>  {
+    const userId = localStorage.getItem("userId");
+    const router = useRouter();
     return <div className="">
             <div className="fixed flex flex-col w-20 h-screen border-r border-gray-800">
                 <div className="p-5"> 
@@ -47,7 +51,9 @@ export const Navbar = () =>  {
                         </div>
                     </div>
                     <div className="flex w-full justify-center items-center">
-                        <button className="bg-orange-600 m-1 fo px-3 py-2 rounded-xl font-semibold">
+                        <button className="bg-orange-600 m-1 fo px-3 py-2 rounded-xl font-semibold" onClick={()=>{
+                            router.push("/createblog/?id:"+userId)
+                        }}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                             </svg>

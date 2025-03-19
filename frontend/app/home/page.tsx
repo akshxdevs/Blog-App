@@ -12,13 +12,23 @@ import { toast } from "react-toastify";
 
 export default function(){
     const [blogs,setBlogs] = useState<any[]>([]);
+    const profilePic = localStorage.getItem("profileImg")
+    const [userId,setUserId] = useState<string|null>(null);
+    const [token,setToken] = useState<string|null>(null);
+
+    useEffect(()=>{
+        const storedUserId = localStorage.getItem("userId");
+        const storedToken = localStorage.getItem("token");
+        
+        if (storedUserId) setUserId(storedUserId);
+        if (storedToken) setToken(storedToken);
+    }) 
+    console.log(token);
+    console.log(userId);
     useEffect(() => {
         const getAllBlogs = async () => {
           try {
             const res = await axios.get(`${BACKEND_URL}/blog/getblogs`, {
-              headers: {
-                authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMyZDNmNzYxLWUyNDMtNDIyZS1iMDgwLTc3Y2FjMzcxNjdlMyIsImlhdCI6MTc0MTk0MzQ2N30.FTJlHgETv0w9wEagB_VXn9V295Opus0hFYaDH20fqqo",
-              },
             });
     
             if (res.data?.blogs) {
@@ -29,16 +39,15 @@ export default function(){
             toast.error("Something went wrong!!");
           }
         };
-    
         getAllBlogs();
-      }, []);
+      }, []); 
+
 return <div>
         <AppBar/>
         <Navbar/>
         <Category/>
         <ImageSlider/>
-        <StartupCard/>
-
+        <StartupCard imgUrl={String(profilePic)}/>
         {blogs.map((blog,index)=>(
             <div key={index} className="">
             <div className="flex w-full flex-col justify-center items-center">
@@ -98,7 +107,27 @@ return <div>
                                             <h1 className="text-md font-semibold">{blog.title}</h1>
                                         </div>
                                         <div>
-                                            <button>
+                                            <button className="" onClick={async()=>{
+                                                try {
+                                                    if (!token || !userId) {
+                                                        toast.error("User not authenticated!");
+                                                        return;
+                                                    }
+                                                    const res = await axios.post(`${BACKEND_URL}/savepost/${blog.id}`,{
+                                                        userId:userId
+                                                    },{
+                                                        headers:{
+                                                            authorization:token
+                                                        }
+                                                    })
+                                                    if (res.data) {
+                                                        toast.success("Post Saved Successfully!")
+                                                    }
+                                                } catch (error) {
+                                                    console.error(error);
+                                                    toast.error("Something went wrong!")
+                                                }
+                                            }}>
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-5">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z" />
                                                 </svg>

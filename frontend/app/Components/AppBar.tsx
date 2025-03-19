@@ -1,12 +1,16 @@
 "use client";
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { LoginComponenet } from "./LoginComponent"
 import { useRecoilValue } from "recoil";
-import { loginStateAtom } from "../recoil/atom";
 
 export const AppBar = () =>  {
     const [showLoginModel,setShowLoginModel] = useState(false);
-    const isLogin = useRecoilValue(loginStateAtom);
+    const [isLogin,setIsLogin] = useState(false);
+    useEffect(()=>{
+        if (localStorage.getItem("userId")) {
+            setIsLogin(true);
+        }
+    },[])
     return <div>
         <div className="fixed left-20 w-full bg-black z-50">
             <div className="flex justify-between p-4 border-b border-gray-800">

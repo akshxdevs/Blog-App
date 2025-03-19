@@ -5,7 +5,7 @@ import { authenticateJWT } from "../middleware";
 
 const router = Router();
 
-router.get("/getblogs",authenticateJWT,async(req,res)=>{
+router.get("/getblogs",async(req,res)=>{
     try {
         const getAllBlogs = await prismaClient.blog.findMany({
             include:{
